@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.theVoiceAround.music.mapper.SingerMapper">
+    <select id="Base_Column_List">
+        id, name, sex, pic, birth, location, introduction
+    </select>
+    <!--添加歌手-->
+    <insert id="addSinger" parameterType="com.theVoiceAround.music.entity.Singer">
+        INSERT INTO singer (
+        name, sex, pic, birth, location, introduction
+        )
+        VALUES (
+        <if test="Singer.name != null and Singer.name != '' ">
+            #{Singer.name},
+        </if>
+        <if test="Singer.sex != null and Singer.sex != '' ">
+            #{Singer.sex},
+        </if>
+        <if test="Singer.pic != null and Singer.pic != '' ">
+            #{Singer.pic},
+        </if>
+        <if test="Singer.birth != null and Singer.birth != '' ">
+            #{Singer.birth},
+        </if>
+        <if test="Singer.location != null and Singer.location != '' ">
+            #{Singer.location},
+        </if>
+        <if test="Singer.introduction != null and Singer.introduction != '' ">
+            #{Singer.introduction},
+        </if>
+        )
+    </insert>
+    <!--根据id修改歌手信息-->
+    <update id="updateSingerInfo" parameterType="com.theVoiceAround.music.entity.Singer">
+        UPDATE singer
+        SET export_password = #{newPassword}
+        WHERE USERNAME = #{currentUser}
+    </update>
+
+</mapper>
