@@ -1,6 +1,6 @@
 package com.theVoiceAround.music.service.impl;
 
-import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.theVoiceAround.music.entity.Singer;
@@ -17,7 +17,7 @@ import java.util.Map;
 /**
  * @author Taliy4h
  * @date 2021/2/3 14:34
- * @description
+ * @description 歌手Service实现类
  */
 @Service
 public class SingerServiceImpl implements SingerService {
@@ -28,13 +28,13 @@ public class SingerServiceImpl implements SingerService {
     @Override
     public Map addSinger(Singer singer) {
         Map map = new HashMap<>();
-        if(singer != null){
+        if(singer != null && !singer.getName().equals("")){
             singerMapper.insert(singer);
             map.put(Consts.CODE, "1");
             map.put(Consts.MESSAGE, "添加成功");
         }else{
             map.put(Consts.CODE, "0");
-            map.put(Consts.MESSAGE, "添加失败");
+            map.put(Consts.MESSAGE, "添加失败, 歌手姓名不能为空");
         }
 
         return map;
@@ -70,16 +70,14 @@ public class SingerServiceImpl implements SingerService {
     }
 
     @Override
-    public Map selectAllSinger(int pageSize, int pageNum, String name) {
+    public Map selectAllSingerPage(int pageSize, int pageNum, String singerName) {
+        QueryWrapper<Singer> queryWrapper = new QueryWrapper<>();
+        if(singerName != null && !singerName.equals("")){
+            queryWrapper.like("name", singerName);
+        }
         Map map = new HashMap<>();
         IPage<Singer> iPage = new Page<>(pageNum, pageSize);
-        UpdateWrapper<Singer> updateWrapper = new UpdateWrapper<>();
-        if(name != null && !name.equals("")){
-            updateWrapper.eq("name", name);
-        }else {
-            updateWrapper = null;
-        }
-        IPage<Singer> singerIPage = singerMapper.selectPage(iPage, updateWrapper);
+        IPage<Singer> singerIPage = singerMapper.selectPage(iPage, queryWrapper);
         long total = singerIPage.getTotal();
         map.put(Consts.CODE, "1");
         map.put(Consts.MESSAGE, "查询成功");
@@ -94,8 +92,16 @@ public class SingerServiceImpl implements SingerService {
     }
 
     @Override
-    public List<Singer> selectSingerByName(String name) {
-        return null;
+    public Map getSingerByName(String name) {
+        Map map = new HashMap<>();
+        QueryWrapper<Singer> queryWrapper = new QueryWrapper<>();
+        List<Singer> resultList = (List<Singer>) queryWrapper.like("name", name);
+        int count = singerMapper.selectCount(queryWrapper);
+        map.put(Consts.CODE, "1");
+        map.put(Consts.MESSAGE, "查询成功");
+        map.put("data", resultList);
+        map.put("total", count);
+        return map;
     }
 
     @Override

@@ -39,12 +39,21 @@ public class SingerController {
      * 分页查询所有歌手
      * params: 分页参数以及查询条件
      */
-    @GetMapping("/allSinger")
-    public Map selectAllSinger(int pageSize, int pageNum, String name){
-        System.out.println("\nparams ===> pageSize: " + pageSize + ",pageNum: " + pageNum + ",name: " + name);
-        Map resultMap = singerService.selectAllSinger(pageSize, pageNum, name);
+    @GetMapping("/allSingerPage")
+    public Map selectAllSingerPage(int pageSize, int pageNum, String singerName){
+        Map resultMap = singerService.selectAllSingerPage(pageSize, pageNum, singerName);
         return resultMap;
     }
+
+    /**
+     * 搜索框按姓名模糊搜索所有歌手
+     */
+    @GetMapping("/getSingerByName")
+    public Map getSingerByName(String name){
+        Map resultMap = singerService.getSingerByName(name);
+        return resultMap;
+    }
+
 
     /**
      * 更新歌手图片
