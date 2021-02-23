@@ -50,7 +50,7 @@ public class SingerServiceImpl implements SingerService {
             map.put(Consts.MESSAGE, "修改成功");
         }else{
             map.put(Consts.CODE, "0");
-            map.put(Consts.MESSAGE, "修改失败");
+            map.put(Consts.MESSAGE, "修改失败, 歌手为空");
         }
         return map;
     }
@@ -64,7 +64,7 @@ public class SingerServiceImpl implements SingerService {
             map.put(Consts.MESSAGE, "删除成功");
         }else{
             map.put(Consts.CODE, "0");
-            map.put(Consts.MESSAGE, "删除失败");
+            map.put(Consts.MESSAGE, "删除失败, 歌手ID错误");
         }
         return map;
     }

@@ -36,7 +36,7 @@ public class SingerController {
     }
 
     /**
-     * 分页查询所有歌手
+     * 分页查询所有歌手, 包含模糊搜索
      * params: 分页参数以及查询条件
      */
     @GetMapping("/allSingerPage")
@@ -44,16 +44,6 @@ public class SingerController {
         Map resultMap = singerService.selectAllSingerPage(pageSize, pageNum, singerName);
         return resultMap;
     }
-
-    /**
-     * 搜索框按姓名模糊搜索所有歌手
-     */
-    @GetMapping("/getSingerByName")
-    public Map getSingerByName(String name){
-        Map resultMap = singerService.getSingerByName(name);
-        return resultMap;
-    }
-
 
     /**
      * 更新歌手图片
@@ -94,6 +84,24 @@ public class SingerController {
         } finally {
             return map;
         }
+    }
+
+    /**
+     * 修改歌手信息
+     */
+    @PostMapping("/updateSingerInfo")
+    public Map updateSingerInfo(@RequestBody Singer singer){
+        Map map = singerService.updateSinger(singer);
+        return map;
+    }
+
+    /**
+     * 删除一名歌手
+     */
+    @GetMapping("/deleteASinger")
+    public Map deleteASinger(int id){
+        Map map = singerService.deleteSinger(id);
+        return map;
     }
 
 }
