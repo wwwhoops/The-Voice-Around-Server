@@ -27,19 +27,15 @@ public interface SingerService {
     Map deleteSinger(Integer id);
 
     /**
-     * 分页查询所有歌手
+     * 分页查询所有歌手，包含根据姓名模糊查询
      */
     Map selectAllSingerPage(int pageSize, int pageNum, String singerName);
 
     /**
      * 根据id查询歌手
      */
-    List<Singer> selectSingerById(Integer id);
+    Singer selectSingerById(Integer id);
 
-    /**
-     * 根据歌手姓名模糊查询歌手信息
-     */
-    Map getSingerByName(String name);
 
     /**
      * 根据性别查询歌手信息

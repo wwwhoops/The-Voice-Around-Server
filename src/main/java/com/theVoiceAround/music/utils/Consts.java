@@ -1,5 +1,8 @@
 package com.theVoiceAround.music.utils;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 /**
  * @author Taliy4h
  * @date 2021/2/1 16:30
@@ -20,4 +23,9 @@ public class Consts {
      * 返回信息
      */
     public static final String MESSAGE = "message";
+
+    /**
+     * 上传文件物理地址统一前缀
+     */
+    public static final String FILE_PATH = "F:/TheVoiceAround/files";
 }

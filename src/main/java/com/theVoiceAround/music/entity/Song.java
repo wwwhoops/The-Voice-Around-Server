@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import lombok.*;
 
 import java.io.Serializable;
 
@@ -13,6 +14,9 @@ import java.io.Serializable;
  * @description 歌曲实体类
  */
 
+@Getter
+@Setter
+@ToString
 @TableName("song")
 public class Song implements Serializable {
     /**
@@ -34,10 +38,10 @@ public class Song implements Serializable {
     private String name;
 
     /**
-     * 歌曲简介
+     * 所在专辑
      */
-    @TableField("introduction")
-    private String introduction;
+    @TableField("album")
+    private String album;
 
     /**
      * 创建时间
@@ -68,91 +72,4 @@ public class Song implements Serializable {
      */
     @TableField("url")
     private String url;
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public Integer getSingerId() {
-        return singerId;
-    }
-
-    public void setSingerId(Integer singerId) {
-        this.singerId = singerId;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getIntroduction() {
-        return introduction;
-    }
-
-    public void setIntroduction(String introduction) {
-        this.introduction = introduction;
-    }
-
-    public String getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(String createTime) {
-        this.createTime = createTime;
-    }
-
-    public String getUpdateTime() {
-        return updateTime;
-    }
-
-    public void setUpdateTime(String updateTime) {
-        this.updateTime = updateTime;
-    }
-
-    public String getPic() {
-        return pic;
-    }
-
-    public void setPic(String pic) {
-        this.pic = pic;
-    }
-
-    public String getLyric() {
-        return lyric;
-    }
-
-    public void setLyric(String lyric) {
-        this.lyric = lyric;
-    }
-
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
-    }
-
-    @Override
-    public String toString() {
-        return "Song{" +
-                "id=" + id +
-                ", singerId=" + singerId +
-                ", name='" + name + '\'' +
-                ", introduction='" + introduction + '\'' +
-                ", createTime='" + createTime + '\'' +
-                ", updateTime='" + updateTime + '\'' +
-                ", pic='" + pic + '\'' +
-                ", lyric='" + lyric + '\'' +
-                ", url='" + url + '\'' +
-                '}';
-    }
 }

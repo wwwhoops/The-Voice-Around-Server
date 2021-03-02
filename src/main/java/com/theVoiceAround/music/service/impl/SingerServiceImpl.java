@@ -87,22 +87,10 @@ public class SingerServiceImpl implements SingerService {
     }
 
     @Override
-    public List<Singer> selectSingerById(Integer id) {
-        return null;
+    public Singer selectSingerById(Integer id) {
+        return singerMapper.selectById(id);
     }
 
-    @Override
-    public Map getSingerByName(String name) {
-        Map map = new HashMap<>();
-        QueryWrapper<Singer> queryWrapper = new QueryWrapper<>();
-        List<Singer> resultList = (List<Singer>) queryWrapper.like("name", name);
-        int count = singerMapper.selectCount(queryWrapper);
-        map.put(Consts.CODE, "1");
-        map.put(Consts.MESSAGE, "查询成功");
-        map.put("data", resultList);
-        map.put("total", count);
-        return map;
-    }
 
     @Override
     public List<Singer> selectSingerBySex(Integer sex) {
