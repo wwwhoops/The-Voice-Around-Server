@@ -1,8 +1,5 @@
 package com.theVoiceAround.music.utils;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 /**
  * @author Taliy4h
  * @date 2021/2/1 16:30
@@ -28,4 +25,34 @@ public class Consts {
      * 上传文件物理地址统一前缀
      */
     public static final String FILE_PATH = "F:/TheVoiceAround/files";
+
+    /**
+     * 歌手图片路径
+     */
+    public static final String SINGER_PIC_PATH = "/img/singerPic";
+
+    /**
+     * 歌手默认图片路径
+     */
+    public static final String DEFAULT_SINGER_PIC_PATH = "/img/singerPic/defaultSingerImg.jpg";
+
+    /**
+     * 歌曲图片路径
+     */
+    public static final String SONG_PIC_PATH = "/img/songPic";
+
+    /**
+     * 歌曲默认图片路径
+     */
+    public static final String DEFAULT_SONG_PIC_PATH = "/img/songPic/defaultSongImg.jpg";
+
+    /**
+     * 歌单图片路径
+     */
+    public static final String SONG_LIST_PIC_PATH = "/img/songListPic";
+
+    /**
+     * 歌单默认图片路径
+     */
+    public static final String DEFAULT_SONG_LIST_PIC_PATH = "/img/songListPic/defaultSongListImg.jpg";
 }

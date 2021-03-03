@@ -56,7 +56,7 @@ public class SingerController {
         }
         //文件名等于当前时间 + 源文件名
         String fileName = System.currentTimeMillis() + avatorFile.getOriginalFilename();
-        String filePath = Consts.FILE_PATH + "/img/singerPic";
+        String filePath = Consts.FILE_PATH + Consts.SINGER_PIC_PATH;
         File file1 = new File(filePath);
         //如果文件路径不存在，则新增
         if(!file1.exists()){
@@ -65,7 +65,7 @@ public class SingerController {
         //实际的文件地址
         File dest = new File(filePath + System.getProperty("file.separator") + fileName);
         //存储到数据库里的文件路径：相对路径
-        String storeDBPath = "/img/singerPic/" + fileName;
+        String storeDBPath = Consts.SINGER_PIC_PATH + "/" + fileName;
         try {
             //更新前查询出旧文件路径
             Singer singer1 = singerService.selectSingerById(id);
@@ -76,7 +76,7 @@ public class SingerController {
             singer.setPic(storeDBPath);
             map = singerService.updateSinger(singer);
             //更新成功后删除旧文件
-            if(singer1 != null && !oldFilePath.equals("/img/singerPic/defaultSingerImg.jpg")){
+            if(singer1 != null && !oldFilePath.equals(Consts.DEFAULT_SINGER_PIC_PATH)){
                 File oldFile = new File(Consts.FILE_PATH + oldFilePath);
                 oldFile.delete();
             }
@@ -110,7 +110,7 @@ public class SingerController {
         String oldFilePath = singer1.getPic();
         Map map = singerService.deleteSinger(id);
         //删除歌手后将其歌手图片删除
-        if(singer1 != null && !oldFilePath.equals("/img/singerPic/defaultSingerImg.jpg")){
+        if(singer1 != null && !oldFilePath.equals(Consts.DEFAULT_SINGER_PIC_PATH)){
             File oldFile = new File(Consts.FILE_PATH + oldFilePath);
             oldFile.delete();
         }

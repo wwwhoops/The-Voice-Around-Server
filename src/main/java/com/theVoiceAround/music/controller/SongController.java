@@ -33,7 +33,7 @@ public class SongController {
         String singerId = request.getParameter("singerId").trim(); //所属歌手id
         String name = request.getParameter("name").trim();  //歌曲名称
         String album = request.getParameter("album").trim(); //歌曲所在专辑
-        String pic = "/img/songPic/defaultSongImg.jpg";  //歌曲默认图片
+        String pic = Consts.DEFAULT_SONG_PIC_PATH;  //歌曲默认图片
         String lyric = request.getParameter("lyric").trim(); //歌词
 
         //获取文件类型
@@ -133,7 +133,7 @@ public class SongController {
         }
         //文件名等于当前时间 + 源文件名
         String fileName = System.currentTimeMillis() + avatorFile.getOriginalFilename();
-        String filePath = Consts.FILE_PATH + "/img/songPic";
+        String filePath = Consts.FILE_PATH + Consts.SONG_PIC_PATH;
         File file1 = new File(filePath);
         //如果文件路径不存在，则新增
         if(!file1.exists()){
@@ -142,7 +142,7 @@ public class SongController {
         //实际的文件地址
         File dest = new File(filePath + System.getProperty("file.separator") + fileName);
         //存储到数据库里的文件路径：相对路径
-        String storeDBPath = "/img/songPic/" + fileName;
+        String storeDBPath = Consts.SONG_PIC_PATH + "/" + fileName;
         try {
             //更新前查询出旧文件路径
             Song song1 = songService.selectSongById(id);
@@ -153,7 +153,7 @@ public class SongController {
             song.setPic(storeDBPath);
             map = songService.updateSong(song);
             //更新成功后删除旧文件
-            if(song1 != null && !oldFilePath.equals("/img/songPic/defaultSongImg.jpg")){
+            if(song1 != null && !oldFilePath.equals(Consts.DEFAULT_SONG_PIC_PATH)){
                 File oldFile = new File(Consts.FILE_PATH + oldFilePath);
                 oldFile.delete();
             }
