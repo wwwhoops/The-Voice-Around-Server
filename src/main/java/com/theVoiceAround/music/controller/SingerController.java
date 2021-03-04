@@ -1,7 +1,10 @@
 package com.theVoiceAround.music.controller;
 
 import com.theVoiceAround.music.entity.Singer;
+import com.theVoiceAround.music.service.ListSongService;
 import com.theVoiceAround.music.service.SingerService;
+import com.theVoiceAround.music.service.SongService;
+import com.theVoiceAround.music.service.impl.ListSongServiceImpl;
 import com.theVoiceAround.music.utils.Consts;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -10,6 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -23,6 +27,12 @@ public class SingerController {
 
     @Autowired
     private SingerService singerService;
+
+    @Autowired
+    private SongService songService;
+
+    @Autowired
+    private ListSongServiceImpl listSongServiceImpl;
 
     /**
      * 添加歌手
@@ -40,6 +50,15 @@ public class SingerController {
     @GetMapping("/allSingerPage")
     public Map selectAllSingerPage(int pageSize, int pageNum, String singerName){
         Map resultMap = singerService.selectAllSingerPage(pageSize, pageNum, singerName);
+        return resultMap;
+    }
+
+    /**
+     * 不分页查询所有歌手
+     */
+    @GetMapping("/allSinger")
+    public Map selectAllSinger(){
+        Map resultMap = singerService.selectAllSinger();
         return resultMap;
     }
 
@@ -113,6 +132,12 @@ public class SingerController {
         if(singer1 != null && !oldFilePath.equals(Consts.DEFAULT_SINGER_PIC_PATH)){
             File oldFile = new File(Consts.FILE_PATH + oldFilePath);
             oldFile.delete();
+        }
+        //同时删除该歌手所拥有的歌曲，并且返回这些歌曲的id用作删除歌单中歌曲
+        List songIdList = songService.deleteSongBySingerId(id);
+        //根据上面得到的歌曲id，删除歌单里面拥有该歌手歌曲的数据
+        for(int i=0; i<songIdList.size(); i++){
+            listSongServiceImpl.deleteASongFromSongList((Integer) songIdList.get(i));
         }
         return map;
     }

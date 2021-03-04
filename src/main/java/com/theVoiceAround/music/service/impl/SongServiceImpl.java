@@ -9,13 +9,16 @@ import com.theVoiceAround.music.mapper.SongMapper;
 import com.theVoiceAround.music.service.SongService;
 import com.theVoiceAround.music.utils.Consts;
 import com.theVoiceAround.music.utils.Files;
+import com.theVoiceAround.music.utils.TypeConvert;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.GetMapping;
 
+import java.io.File;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 /**
  * @author Taliy4h
@@ -64,6 +67,17 @@ public class SongServiceImpl implements SongService {
     }
 
     @Override
+    public Map selectAllSongBySingerId(Integer singerId) {
+        Map map = new HashMap();
+        QueryWrapper<Song> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("singer_id", singerId);
+        map.put("data", songMapper.selectList(queryWrapper));
+        map.put(Consts.CODE, "1");
+        map.put(Consts.MESSAGE, "查询成功");
+        return map;
+    }
+
+    @Override
     public Map updateSong(Song song) {
         //基于主键修改
         Map map = new HashMap<>();
@@ -85,6 +99,10 @@ public class SongServiceImpl implements SongService {
     @Override
     public Map deleteSong(Integer id) {
         Map map = new HashMap<>();
+        //查询歌曲文件和图片路径
+        Song song1 = this.selectSongById(id);
+        String fileUrl = song1.getUrl();
+        String imgUrl = song1.getPic();
         if(id != null && id != 0){
             songMapper.deleteById(id);
             map.put(Consts.CODE, "1");
@@ -92,10 +110,44 @@ public class SongServiceImpl implements SongService {
         }else{
             map.put(Consts.CODE, "0");
             map.put(Consts.MESSAGE, "删除失败, 歌手ID错误");
+            return map;
+        }
+        //删除歌曲文件
+        if(song1 != null){
+            File songFile = new File(Consts.FILE_PATH + fileUrl);
+            songFile.delete();
+        }
+        //删除歌曲图片
+        if(song1 != null && !imgUrl.equals(Consts.DEFAULT_SONG_PIC_PATH)){
+            File imgFile = new File(Consts.FILE_PATH + imgUrl);
+            imgFile.delete();
         }
         return map;
     }
 
     @Override
     public Song selectSongById(Integer id) { return songMapper.selectById(id); }
+
+
+    /**
+     * 根据歌手id删除该歌手的所有歌曲，用于当删除歌手时删除其歌曲
+     */
+    @Override
+    public List deleteSongBySingerId(Integer id) {
+        //查询出一位歌手所有的歌曲，获取每一个歌曲id
+        List songIdList = new ArrayList<>();
+        Map songMap = this.selectAllSongBySingerId(id);
+        List<Song> dataList = (List<Song>) songMap.get("data"); //数据库查询出的所有歌曲对象
+        if(!dataList.isEmpty()){
+            for(int i=0; i<dataList.size(); i++){
+                Map map = TypeConvert.beanToMap(dataList.get(i)); //将bean转换成Map
+                songIdList.add(map.get("id")); //从Map中获取对应的值并添加到歌曲id集合中
+            }
+        }
+        //得到歌曲id后删除歌曲
+        for(int i=0; i<songIdList.size(); i++){
+            this.deleteSong((Integer) songIdList.get(i));
+        }
+        return songIdList;
+    }
 }

@@ -2,7 +2,6 @@ package com.theVoiceAround.music.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.theVoiceAround.music.entity.Admin;
-import org.apache.ibatis.annotations.Mapper;
 
 /**
  * @author Taliy4h

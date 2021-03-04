@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -15,9 +16,7 @@ import java.io.Serializable;
  * @date 2021/2/2 15:03
  * @description 歌手实体类
  */
-@Getter
-@Setter
-@ToString
+@Data
 @TableName("singer")
 public class Singer implements Serializable{
 

@@ -87,6 +87,15 @@ public class SingerServiceImpl implements SingerService {
     }
 
     @Override
+    public Map selectAllSinger() {
+        Map map = new HashMap();
+        map.put("data", singerMapper.selectList(null));
+        map.put(Consts.CODE, "1");
+        map.put(Consts.MESSAGE, "查询成功");
+        return map;
+    }
+
+    @Override
     public Singer selectSingerById(Integer id) {
         return singerMapper.selectById(id);
     }

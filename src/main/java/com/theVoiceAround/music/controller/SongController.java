@@ -10,8 +10,12 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 /**
  * @author Taliy4h
@@ -90,6 +94,15 @@ public class SongController {
     }
 
     /**
+     * 根据歌手id不分页查询所有歌曲
+     */
+    @GetMapping("/allSong")
+    public Map selectAllSong(Integer singerId){
+        Map resultMap = songService.selectAllSongBySingerId(singerId);
+        return resultMap;
+    }
+
+    /**
      * 修改歌曲信息
      */
     @PostMapping("/updateSongInfo")
@@ -99,24 +112,11 @@ public class SongController {
     }
 
     /**
-     * 删除一首歌曲
+     * 根据主键删除一首歌曲
      */
     @GetMapping("/deleteASong")
     public Map deleteASong(int id){
-        //查询歌曲文件和图片路径
-        Song song1 = songService.selectSongById(id);
-        String fileUrl = song1.getUrl();
-        String imgUrl = song1.getPic();
         Map map = songService.deleteSong(id);
-        //删除歌曲文件
-        if(song1 != null){
-            File songFile = new File(Consts.FILE_PATH + fileUrl);
-            songFile.delete();
-        }
-        if(song1 != null && !imgUrl.equals("/img/singerPic/defaultSongImg.jpg")){
-            File imgFile = new File(Consts.FILE_PATH + imgUrl);
-            imgFile.delete();
-        }
         return map;
     }
 

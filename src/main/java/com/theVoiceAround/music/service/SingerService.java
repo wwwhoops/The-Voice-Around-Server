@@ -32,6 +32,11 @@ public interface SingerService {
     Map selectAllSingerPage(int pageSize, int pageNum, String singerName);
 
     /**
+     * 不分页查询所有歌手
+     */
+    Map selectAllSinger();
+
+    /**
      * 根据id查询歌手
      */
     Singer selectSingerById(Integer id);

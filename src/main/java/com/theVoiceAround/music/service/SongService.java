@@ -2,6 +2,7 @@ package com.theVoiceAround.music.service;
 
 import com.theVoiceAround.music.entity.Song;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -15,9 +16,13 @@ public interface SongService {
 
     Map selectSingerSongPage(int pageSize, int pageNum, String songName, int singerId);
 
+    Map selectAllSongBySingerId(Integer singerId);
+
     Map updateSong(Song song);
 
     Map deleteSong(Integer id);
 
     Song selectSongById(Integer id);
+
+    List deleteSongBySingerId(Integer id);
 }

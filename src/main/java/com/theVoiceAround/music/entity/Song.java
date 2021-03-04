@@ -14,9 +14,7 @@ import java.io.Serializable;
  * @description 歌曲实体类
  */
 
-@Getter
-@Setter
-@ToString
+@Data
 @TableName("song")
 public class Song implements Serializable {
     /**

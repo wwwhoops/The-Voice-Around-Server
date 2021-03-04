@@ -10,15 +10,14 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
 import java.io.Serializable;
 
-@Getter
-@Setter
-@ToString
+@Data
 @TableName("admin")//该注解标明数据库中的表名和实体类对应，默认将类名识别成表名
 public class Admin implements Serializable{
 
