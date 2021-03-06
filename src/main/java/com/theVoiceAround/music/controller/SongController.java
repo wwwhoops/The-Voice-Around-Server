@@ -10,12 +10,8 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.function.Function;
-import java.util.stream.Collectors;
 
 /**
  * @author Taliy4h
@@ -100,6 +96,14 @@ public class SongController {
     public Map selectAllSong(Integer singerId){
         Map resultMap = songService.selectAllSongBySingerId(singerId);
         return resultMap;
+    }
+
+    /**
+     * 查询所有歌曲
+     */
+    @GetMapping("/getAllSong")
+    public Map getAllSong(){
+        return songService.selectAllSong();
     }
 
     /**

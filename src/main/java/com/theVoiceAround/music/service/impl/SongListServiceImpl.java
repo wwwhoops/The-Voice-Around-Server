@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -95,6 +96,17 @@ public class SongListServiceImpl implements SongListService {
             map.put(Consts.CODE, "0");
             map.put(Consts.MESSAGE, "修改失败, 歌曲为空");
         }
+        return map;
+    }
+
+    @Override
+    public Map selectAllSongList() {
+        Map map = new HashMap();
+        List<SongList> resultList = songListMapper.selectList(null);
+        map.put(Consts.CODE, "1");
+        map.put(Consts.MESSAGE, "查询成功");
+        map.put("data", resultList);
+        map.put("total", resultList.size());
         return map;
     }
 }

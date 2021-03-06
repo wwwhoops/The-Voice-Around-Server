@@ -3,22 +3,17 @@ package com.theVoiceAround.music.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.theVoiceAround.music.entity.Singer;
 import com.theVoiceAround.music.entity.Song;
 import com.theVoiceAround.music.mapper.SongMapper;
 import com.theVoiceAround.music.service.SongService;
 import com.theVoiceAround.music.utils.Consts;
-import com.theVoiceAround.music.utils.Files;
-import com.theVoiceAround.music.utils.TypeConvert;
+import com.theVoiceAround.music.utils.TypeConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.*;
-import java.util.function.Function;
-import java.util.stream.Collectors;
 
 /**
  * @author Taliy4h
@@ -140,7 +135,7 @@ public class SongServiceImpl implements SongService {
         List<Song> dataList = (List<Song>) songMap.get("data"); //数据库查询出的所有歌曲对象
         if(!dataList.isEmpty()){
             for(int i=0; i<dataList.size(); i++){
-                Map map = TypeConvert.beanToMap(dataList.get(i)); //将bean转换成Map
+                Map map = TypeConverter.beanToMap(dataList.get(i)); //将bean转换成Map
                 songIdList.add(map.get("id")); //从Map中获取对应的值并添加到歌曲id集合中
             }
         }
@@ -149,5 +144,16 @@ public class SongServiceImpl implements SongService {
             this.deleteSong((Integer) songIdList.get(i));
         }
         return songIdList;
+    }
+
+    @Override
+    public Map selectAllSong() {
+        Map map = new HashMap();
+        List<Song> resultList = songMapper.selectList(null);
+        map.put(Consts.CODE, "1");
+        map.put(Consts.MESSAGE, "查询成功");
+        map.put("data", resultList);
+        map.put("total", resultList.size());
+        return map;
     }
 }

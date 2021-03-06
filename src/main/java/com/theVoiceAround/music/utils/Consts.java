@@ -55,4 +55,19 @@ public class Consts {
      * 歌单默认图片路径
      */
     public static final String DEFAULT_SONG_LIST_PIC_PATH = "/img/songListPic/defaultSongListImg.jpg";
+
+    /**
+     * 客户头像路径
+     */
+    public static final String AVATAR_PATH = "/img/avatar";
+
+    /**
+     * 客户端默认头像路径（男）
+     */
+    public static final String DEFAULT_MALE_AVATAR_PATH = "/img/avatar/defaultMaleAvatarImg.jpg";
+
+    /**
+     * 客户端默认头像路径（女）
+     */
+    public static final String DEFAULT_FEMALE_AVATAR_PATH = "/img/avatar/defaultFemaleAvatarImg.jpg";
 }

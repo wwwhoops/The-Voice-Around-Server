@@ -32,5 +32,9 @@ public class FileConfig implements WebMvcConfigurer {
         //歌曲地址
         registry.addResourceHandler("/music/song/**")
                 .addResourceLocations("file:" + Consts.FILE_PATH + "/music/song/");
+
+        //客户端头像地址
+        registry.addResourceHandler("/img/avatar/**")
+                .addResourceLocations("file:" + Consts.FILE_PATH + "/img/avatar/");
     }
 }

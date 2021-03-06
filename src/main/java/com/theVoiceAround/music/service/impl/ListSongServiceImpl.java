@@ -5,6 +5,7 @@ import com.theVoiceAround.music.entity.ListSong;
 import com.theVoiceAround.music.mapper.ListSongMapper;
 import com.theVoiceAround.music.service.ListSongService;
 import com.theVoiceAround.music.utils.Consts;
+import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,7 +13,6 @@ import org.springframework.stereotype.Service;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import org.slf4j.Logger;
 
 /**
  * @author Taliy4h

@@ -29,6 +29,7 @@ public class SingerServiceImpl implements SingerService {
     public Map addSinger(Singer singer) {
         Map map = new HashMap<>();
         if(singer != null && !singer.getName().equals("")){
+            singer.setPic(Consts.DEFAULT_SINGER_PIC_PATH);
             singerMapper.insert(singer);
             map.put(Consts.CODE, "1");
             map.put(Consts.MESSAGE, "添加成功");
@@ -89,7 +90,9 @@ public class SingerServiceImpl implements SingerService {
     @Override
     public Map selectAllSinger() {
         Map map = new HashMap();
-        map.put("data", singerMapper.selectList(null));
+        List<Singer> resultList = singerMapper.selectList(null);
+        map.put("data", resultList);
+        map.put("total", resultList.size());
         map.put(Consts.CODE, "1");
         map.put(Consts.MESSAGE, "查询成功");
         return map;

@@ -19,4 +19,6 @@ public interface SongListService {
     Map deleteSongList(Integer id);
 
     Map updateSongList(SongList songList);
+
+    Map selectAllSongList();
 }

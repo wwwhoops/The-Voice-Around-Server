@@ -37,10 +37,17 @@ public class SongListController {
      * 分页查询所有歌单, 包含模糊搜索
      * params: 分页参数以及查询条件
      */
-    @GetMapping("/getAllSongList")
+    @GetMapping("/getAllSongListPage")
     public Map getAllSongListPage(int pageSize, int pageNum, String title){
         Map resultMap = songListService.getAllSongListPage(pageSize, pageNum, title);
         return resultMap;
+    }
+    /**
+     * 查询所有歌单
+     */
+    @GetMapping("/getAllSongList")
+    public Map getAllSong(){
+        return songListService.selectAllSongList();
     }
 
     /**

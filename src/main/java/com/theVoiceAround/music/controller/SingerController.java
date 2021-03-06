@@ -1,7 +1,6 @@
 package com.theVoiceAround.music.controller;
 
 import com.theVoiceAround.music.entity.Singer;
-import com.theVoiceAround.music.service.ListSongService;
 import com.theVoiceAround.music.service.SingerService;
 import com.theVoiceAround.music.service.SongService;
 import com.theVoiceAround.music.service.impl.ListSongServiceImpl;
@@ -66,15 +65,15 @@ public class SingerController {
      * 更新歌手图片
      */
     @PostMapping("/updateSingerPic")
-    public Map updateSingerPic(@RequestParam("file") MultipartFile avatorFile, @RequestParam("id") int id){
+    public Map updateSingerPic(@RequestParam("file") MultipartFile avatarFile, @RequestParam("id") int id){
         Map map = new HashMap();
-        if(avatorFile.isEmpty()){ //前端做了类型判断，此处不再判断
+        if(avatarFile.isEmpty()){ //前端做了类型判断，此处不再判断
             map.put(Consts.CODE, 0);
             map.put(Consts.MESSAGE, "文件为空");
             return map;
         }
         //文件名等于当前时间 + 源文件名
-        String fileName = System.currentTimeMillis() + avatorFile.getOriginalFilename();
+        String fileName = System.currentTimeMillis() + avatarFile.getOriginalFilename();
         String filePath = Consts.FILE_PATH + Consts.SINGER_PIC_PATH;
         File file1 = new File(filePath);
         //如果文件路径不存在，则新增
@@ -89,7 +88,7 @@ public class SingerController {
             //更新前查询出旧文件路径
             Singer singer1 = singerService.selectSingerById(id);
             String oldFilePath = singer1.getPic();
-            avatorFile.transferTo(dest);
+            avatarFile.transferTo(dest);
             Singer singer = new Singer();
             singer.setId(id);
             singer.setPic(storeDBPath);
