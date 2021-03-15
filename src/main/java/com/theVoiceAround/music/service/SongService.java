@@ -27,4 +27,8 @@ public interface SongService {
     List deleteSongBySingerId(Integer id);
 
     Map selectAllSong();
+
+    Map getAllSongByKeywords(String keywords);
+
+    Map selectAllSongBySingerIdAlias(Integer singerId);
 }

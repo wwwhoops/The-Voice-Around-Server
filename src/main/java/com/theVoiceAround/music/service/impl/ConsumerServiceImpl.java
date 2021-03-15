@@ -49,6 +49,13 @@ public class ConsumerServiceImpl implements ConsumerService {
     @Override
     public Map addConsumer(Consumer consumer) {
         Map map = new HashMap<>();
+        //查询用户是否存在
+        Consumer consumer1 = consumerMapper.selectOne(new QueryWrapper<Consumer>().eq("username", consumer.getUsername()));
+        if(consumer1 != null){
+            map.put(Consts.CODE, "0");
+            map.put(Consts.MESSAGE, "用户名已存在");
+            return map;
+        }
         if(consumer != null && !consumer.getUsername().equals("")){
             if(consumer.getSex() == 1){
                 consumer.setAvatar(Consts.DEFAULT_MALE_AVATAR_PATH);
@@ -118,5 +125,12 @@ public class ConsumerServiceImpl implements ConsumerService {
         map.put("data", resultList);
         map.put("total", resultList.size());
         return map;
+    }
+
+    @Override
+    public Consumer verifyPassword(String username, String password) {
+        QueryWrapper<Consumer> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("username", username).eq("password",password);
+        return consumerMapper.selectOne(queryWrapper);
     }
 }

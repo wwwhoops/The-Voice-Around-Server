@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.theVoiceAround.music.mapper.SongMapper">
+    <select id="getAllSongByKeywords" resultType="Map" parameterType="String">
+        SELECT
+            singer.name singerName,
+            singer.id singerId,
+            song.name songName,
+            song.album songAlbum,
+            song.id songId,
+            song.url songUrl,
+            song.pic songPic,
+            song.lyric songLyric
+        FROM
+            song
+                LEFT JOIN
+            singer ON song.singer_id = singer.id
+        WHERE 1=1
+        <if test="keywords != null and keywords != '' ">
+            AND song.name LIKE CONCAT('%',#{keywords},'%') or singer.name LIKE CONCAT('%',#{keywords},'%')
+        </if>
+    </select>
+
+    <select id="selectAllSongBySingerIdAlias" resultType="Map" parameterType="Integer">
+        SELECT
+        singer.name singerName,
+        singer.id singerId,
+        song.name songName,
+        song.album songAlbum,
+        song.id songId,
+        song.url songUrl,
+        song.pic songPic,
+        song.lyric songLyric
+        FROM
+        song
+        LEFT JOIN
+        singer ON song.singer_id = singer.id
+        WHERE 1=1
+        <if test="singerId != null and singerId != '' ">
+            AND singer_id = ${singerId}
+        </if>
+    </select>
+</mapper>

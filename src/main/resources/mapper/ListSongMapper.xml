@@ -7,7 +7,9 @@
           song.name songName,
           song.album songAlbum,
           song.pic songPic,
-          song.id songId
+          song.id songId,
+          song.url songUrl,
+          song.lyric songLyric
         FROM
           song
         LEFT JOIN

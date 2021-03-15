@@ -2,6 +2,7 @@ package com.theVoiceAround.music.service;
 
 import com.theVoiceAround.music.entity.Consumer;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -21,4 +22,9 @@ public interface ConsumerService {
     Map updateConsumer(Consumer consumer);
 
     Map selectAllConsumer();
+
+    /**
+     * 验证密码
+     */
+    Consumer verifyPassword(String username, String password);
 }

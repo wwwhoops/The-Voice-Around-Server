@@ -156,4 +156,25 @@ public class SongServiceImpl implements SongService {
         map.put("total", resultList.size());
         return map;
     }
+
+    @Override
+    public Map getAllSongByKeywords(String keywords) {
+        Map map = new HashMap();
+        List resultList = songMapper.getAllSongByKeywords(keywords);
+        map.put(Consts.CODE, "1");
+        map.put(Consts.MESSAGE, "查询成功");
+        map.put("data", resultList);
+        map.put("total", resultList.size());
+        return map;
+    }
+
+    @Override
+    public Map selectAllSongBySingerIdAlias(Integer singerId) {
+        Map map = new HashMap();
+        List<Song> resultList = songMapper.selectAllSongBySingerIdAlias(singerId);
+        map.put("data", resultList);
+        map.put(Consts.CODE, "1");
+        map.put(Consts.MESSAGE, "查询成功");
+        return map;
+    }
 }

@@ -1,5 +1,6 @@
 package com.theVoiceAround.music.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.theVoiceAround.music.entity.Consumer;
 import com.theVoiceAround.music.service.ConsumerService;
 import com.theVoiceAround.music.utils.Consts;
@@ -7,9 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -18,11 +21,36 @@ import java.util.Map;
  * @description 客户端用户Controller
  */
 @RestController
-@RequestMapping("consumer")
+@RequestMapping("/consumer")
 public class ConsumerController {
 
     @Autowired
     private ConsumerService consumerService;
+
+    /**
+     * 用户登录
+     */
+    @PostMapping("/login")
+    public Map consumerLogin(@RequestBody String params, HttpSession session){
+        Map map = new HashMap();
+        Map paramsMap = JSON.parseObject(params);
+        String username = (String) paramsMap.get("name");
+        String password = (String) paramsMap.get("password");
+        Consumer consumer = consumerService.verifyPassword(username, password);
+        if(consumer != null){
+            map.put(Consts.CODE, 1);
+            map.put(Consts.MESSAGE, "登录成功");
+            map.put("id", consumer.getId());
+            map.put("username", consumer.getUsername());
+            map.put("avatar", consumer.getAvatar());
+            session.setAttribute(Consts.USERNAME,username);
+        }else{
+            map.put(Consts.CODE, 0);
+            map.put(Consts.MESSAGE,"用户名或密码错误");
+        }
+
+        return map;
+    }
 
     /**
      * 添加用户

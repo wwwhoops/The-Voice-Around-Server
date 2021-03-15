@@ -97,13 +97,39 @@ public class SongController {
         Map resultMap = songService.selectAllSongBySingerId(singerId);
         return resultMap;
     }
+    /**
+     * 根据歌手id不分页查询所有歌曲，加别名
+     */
+    @GetMapping("/allSongAlias")
+    public Map selectAllSongAlias(Integer singerId){
+        Map resultMap = songService.selectAllSongBySingerIdAlias(singerId);
+        return resultMap;
+    }
 
     /**
-     * 查询所有歌曲
+     * 查询所有歌曲或根据歌名模糊查询所有歌曲
      */
     @GetMapping("/getAllSong")
     public Map getAllSong(){
         return songService.selectAllSong();
+    }
+
+    /**
+     * 根据歌手名字或歌曲名字模糊搜索歌曲或歌手的歌曲
+     */
+    @GetMapping("/getAllSongByKeywords")
+    public Map getAllSongByKeywords(String keywords){
+        return songService.getAllSongByKeywords(keywords);
+    }
+
+    /**
+     * 根据歌曲ID查询歌曲对象
+     * @param songId 歌曲Id
+     * @return
+     */
+    @GetMapping("/getASongBySongId")
+    public Song getASongBySongId(Integer songId){
+        return songService.selectSongById(songId);
     }
 
     /**
