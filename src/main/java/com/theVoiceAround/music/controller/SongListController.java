@@ -124,4 +124,12 @@ public class SongListController {
         return map;
     }
 
+    /**
+     * 根据歌单title或style模糊搜索歌单
+     */
+    @GetMapping("/getAllSongListByKeywords")
+    public Map getAllSongListByKeywords(String keywords){
+        return songListService.getAllSongListByKeywords(keywords);
+    }
+
 }

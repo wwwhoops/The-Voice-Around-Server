@@ -21,4 +21,8 @@ public interface SongListService {
     Map updateSongList(SongList songList);
 
     Map selectAllSongList();
+
+    Map getAllSongListByKeywords(String keywords);
+
+
 }

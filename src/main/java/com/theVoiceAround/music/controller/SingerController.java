@@ -141,4 +141,12 @@ public class SingerController {
         return map;
     }
 
+    /**
+     * 根据歌手性别（男、女、组合、不明）
+     */
+    @GetMapping("/singerBySex")
+    public Map singerBySex(Integer sex){
+        return singerService.selectSingerBySex(sex);
+    }
+
 }

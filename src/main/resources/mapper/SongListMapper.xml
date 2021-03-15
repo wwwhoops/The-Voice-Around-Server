@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.theVoiceAround.music.mapper.SongListMapper">
+    <select id="getAllSongListByKeywords" resultType="Map" parameterType="String">
+        SELECT
+        song_list.id id,
+        song_list.title title,
+        song_list.pic pic,
+        song_list.introduction introduction,
+        song_list.style style,
+        song_list.create_time createTime,
+        song_list.update_time updataTime
+        FROM
+        song_list
+        WHERE 1=1
+        <if test="keywords != null and keywords != '' ">
+            AND song_list.title LIKE CONCAT('%',#{keywords},'%')
+            OR song_list.style LIKE CONCAT('%',#{keywords},'%')
+        </if>
+    </select>
+</mapper>

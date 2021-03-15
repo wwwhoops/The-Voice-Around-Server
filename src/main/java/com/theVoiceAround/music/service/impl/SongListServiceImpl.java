@@ -109,4 +109,15 @@ public class SongListServiceImpl implements SongListService {
         map.put("total", resultList.size());
         return map;
     }
+
+    @Override
+    public Map getAllSongListByKeywords(String keywords) {
+        Map map = new HashMap();
+        List resultList = songListMapper.getAllSongListByKeywords(keywords);
+        map.put(Consts.CODE, "1");
+        map.put(Consts.MESSAGE, "查询成功");
+        map.put("data", resultList);
+        map.put("total", resultList.size());
+        return map;
+    }
 }

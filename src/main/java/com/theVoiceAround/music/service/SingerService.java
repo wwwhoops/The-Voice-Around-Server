@@ -45,6 +45,6 @@ public interface SingerService {
     /**
      * 根据性别查询歌手信息
      */
-    List<Singer> selectSingerBySex(Integer sex);
+    Map selectSingerBySex(Integer sex);
 
 }

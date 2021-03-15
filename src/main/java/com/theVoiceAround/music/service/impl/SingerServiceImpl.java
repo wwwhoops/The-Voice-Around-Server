@@ -105,7 +105,17 @@ public class SingerServiceImpl implements SingerService {
 
 
     @Override
-    public List<Singer> selectSingerBySex(Integer sex) {
-        return null;
+    public Map selectSingerBySex(Integer sex) {
+        Map map = new HashMap();
+        if(sex != null && !sex.equals("")){
+            List resultList = singerMapper.selectList(new QueryWrapper<Singer>().eq("sex", sex));
+            map.put(Consts.CODE, "1");
+            map.put(Consts.MESSAGE, "查询成功");
+            map.put("data", resultList);
+        }else {
+            map.put(Consts.CODE, "0");
+            map.put(Consts.MESSAGE, "参数错误");
+        }
+        return map;
     }
 }

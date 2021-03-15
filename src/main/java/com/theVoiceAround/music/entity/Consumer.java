@@ -14,7 +14,7 @@ import java.io.Serializable;
  * @description 客户端用户实体类
  */
 @Data
-@TableName("Consumer")
+@TableName("consumer")
 public class Consumer implements Serializable {
 
     /**
