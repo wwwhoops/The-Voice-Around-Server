@@ -43,4 +43,19 @@ public class CommentController {
         return commentService.getCommentOfSongListId(songListId);
     }
 
+    /**
+     * 根据歌单id查询当前歌单的评论列表，带别名及其他参数
+     */
+    @GetMapping("/getCommentBySongListId")
+    public Map getCommentBySongListId(Integer songListId){
+        return commentService.getCommentBySongListId(songListId);
+    }
+
+    /**
+     * 根据评论id删除一条评论
+     */
+    @GetMapping("/deleteAComment")
+    public Map deleteAComment(Integer commentId){
+        return commentService.deleteAComment(commentId);
+    }
 }

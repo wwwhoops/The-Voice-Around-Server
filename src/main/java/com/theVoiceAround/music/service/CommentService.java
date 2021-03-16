@@ -16,4 +16,8 @@ public interface CommentService {
     Map getCommentOfSongId(Integer songId);
 
     Map getCommentOfSongListId(Integer songListId);
+
+    Map getCommentBySongListId(Integer songListId);
+
+    Map deleteAComment(Integer commentId);
 }

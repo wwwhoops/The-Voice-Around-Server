@@ -6,6 +6,8 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
+import java.io.Serializable;
+
 /**
  * @author Taliy4h
  * @date 2021/3/15 9:58
@@ -13,7 +15,7 @@ import lombok.Data;
  */
 @Data
 @TableName("evaluation")
-public class Evaluation {
+public class Evaluation implements Serializable {
 
     /**
      * 主键

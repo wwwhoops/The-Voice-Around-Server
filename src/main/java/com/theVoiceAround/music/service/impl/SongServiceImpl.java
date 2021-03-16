@@ -177,4 +177,14 @@ public class SongServiceImpl implements SongService {
         map.put(Consts.MESSAGE, "查询成功");
         return map;
     }
+
+    @Override
+    public Map getASongBySongIdAlias(Integer songId) {
+        Map map = new HashMap();
+        List resultList = songMapper.getASongBySongIdAlias(songId);
+        map.put("data", resultList);
+        map.put(Consts.CODE, "1");
+        map.put(Consts.MESSAGE, "查询成功");
+        return map;
+    }
 }

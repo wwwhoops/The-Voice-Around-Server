@@ -31,4 +31,6 @@ public interface SongService {
     Map getAllSongByKeywords(String keywords);
 
     Map selectAllSongBySingerIdAlias(Integer singerId);
+
+    Map getASongBySongIdAlias(Integer songId);
 }

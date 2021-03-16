@@ -142,6 +142,14 @@ public class SongController {
     }
 
     /**
+     * getASongBySongIdAlias 根据歌曲id带别名查询歌曲信息
+     */
+    @GetMapping("/getASongBySongIdAlias")
+    public Map getASongBySongIdAlias(Integer songId){
+        return songService.getASongBySongIdAlias(songId);
+    }
+
+    /**
      * 根据主键删除一首歌曲
      */
     @GetMapping("/deleteASong")

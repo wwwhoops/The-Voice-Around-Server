@@ -40,4 +40,25 @@
             AND singer_id = ${singerId}
         </if>
     </select>
+
+    <select id="getASongBySongIdAlias" resultType="Map" parameterType="Integer">
+        SELECT
+        singer.name singerName,
+        singer.id singerId,
+        song.name songName,
+        song.album songAlbum,
+        song.id songId,
+        song.url songUrl,
+        song.pic songPic,
+        song.lyric songLyric
+        FROM
+        song
+        LEFT JOIN
+        singer ON song.singer_id = singer.id
+        WHERE 1=1
+        <if test="id != null and id != '' ">
+            AND song.id = ${id}
+        </if>
+    </select>
+
 </mapper>

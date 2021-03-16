@@ -10,12 +10,12 @@ import java.io.Serializable;
 
 /**
  * @author Taliy4h
- * @date 2021/3/15 14:39
- * @description
+ * @date 2021/3/15 22:58
+ * @description 收藏实体类
  */
 @Data
-@TableName("comment")
-public class Comment implements Serializable {
+@TableName("collect")
+public class Collect implements Serializable {
 
     /**
      * 主键
@@ -26,11 +26,11 @@ public class Comment implements Serializable {
     /**
      * 用户id
      */
-    @TableField("consumer_id")
-    private Integer consumerId;
+    @TableField("user_id")
+    private Integer userId;
 
     /**
-     * type 收藏类型，0歌曲1歌单
+     * 收藏类型，0歌曲1歌单
      */
     @TableField("type")
     private Byte type;
@@ -48,21 +48,8 @@ public class Comment implements Serializable {
     private Integer songListId;
 
     /**
-     * 评论内容
-     */
-    @TableField("content")
-    private String content;
-
-    /**
-     * 评论时间
+     * 收藏时间
      */
     @TableField("create_time")
     private String createTime;
-
-    /**
-     * 获得点赞数
-     */
-    @TableField("up")
-    private Integer up;
-
 }

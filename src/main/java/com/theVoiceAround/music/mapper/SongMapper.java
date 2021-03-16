@@ -14,4 +14,6 @@ public interface SongMapper extends BaseMapper<Song> {
     List getAllSongByKeywords(String keywords);
 
     List selectAllSongBySingerIdAlias(Integer singerId);
+
+    List getASongBySongIdAlias(Integer id);
 }

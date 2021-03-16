@@ -72,4 +72,33 @@ public class CommentServiceImpl implements CommentService{
         }
         return map;
     }
+
+    @Override
+    public Map getCommentBySongListId(Integer songListId) {
+        Map map = new HashMap();
+        if(songListId != null){
+            List resultList = commentMapper.getCommentBySongListId(songListId);
+            map.put(Consts.CODE, "1");
+            map.put(Consts.MESSAGE, "查询成功");
+            map.put("data", resultList);
+        }else{
+            map.put(Consts.CODE, "0");
+            map.put(Consts.MESSAGE, "歌单ID为空");
+        }
+        return map;
+    }
+
+    @Override
+    public Map deleteAComment(Integer commentId) {
+        Map map = new HashMap();
+        if(commentId != null){
+            commentMapper.deleteById(commentId);
+            map.put(Consts.CODE, "1");
+            map.put(Consts.MESSAGE, "删除成功");
+        }else{
+            map.put(Consts.CODE, "0");
+            map.put(Consts.MESSAGE, "参数错误");
+        }
+        return map;
+    }
 }

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.theVoiceAround.music.mapper.CommentMapper">
+    <select id="getCommentBySongListId" resultType="Map" parameterType="Integer">
+        SELECT
+        COMMENT.id commentId,
+        COMMENT.consumer_id consumerId,
+        COMMENT.type type,
+        COMMENT.song_id songId,
+        COMMENT.song_list_id songListId,
+        COMMENT.content,
+        COMMENT.create_time createTime,
+        COMMENT.up,
+        consumer.username,
+        consumer.avatar
+        FROM
+        COMMENT LEFT JOIN consumer ON COMMENT.consumer_id = consumer.id
+        LEFT JOIN song_list ON COMMENT.song_list_id = song_list.id
+        WHERE
+        1 = 1
+        <if test="songListId != null and songListId != '' ">
+            AND song_list.id = ${songListId}
+        </if>
+    </select>
+
+</mapper>
