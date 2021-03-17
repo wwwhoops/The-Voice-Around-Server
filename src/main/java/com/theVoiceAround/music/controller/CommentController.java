@@ -58,4 +58,13 @@ public class CommentController {
     public Map deleteAComment(Integer commentId){
         return commentService.deleteAComment(commentId);
     }
+
+    /**
+     * 点赞评论
+     *
+     */
+    @GetMapping("/like")
+    public Map like(Integer commentId, Integer userId){
+        return commentService.like(commentId, userId);
+    }
 }

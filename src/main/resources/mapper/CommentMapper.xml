@@ -23,4 +23,16 @@
         </if>
     </select>
 
+    <!--<select id="getLikeRecords" resultType="com.theVoiceAround.music.entity.LikeRecords" parameterType="Integer">-->
+        <!--SELECT-->
+        <!--id, consumer_id consumerId, comment_id commentId-->
+        <!--FROM-->
+        <!--like_records-->
+        <!--WHERE-->
+        <!--1 = 1-->
+        <!--<if test="userId != null and commentId != null ">-->
+            <!--AND comment_id = ${commentId} AND consumer_id = ${userId}-->
+        <!--</if>-->
+    <!--</select>-->
+
 </mapper>

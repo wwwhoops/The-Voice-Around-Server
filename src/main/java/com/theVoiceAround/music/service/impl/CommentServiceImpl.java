@@ -2,7 +2,9 @@ package com.theVoiceAround.music.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.theVoiceAround.music.entity.Comment;
+import com.theVoiceAround.music.entity.LikeRecords;
 import com.theVoiceAround.music.mapper.CommentMapper;
+import com.theVoiceAround.music.mapper.LikeRecordsMapper;
 import com.theVoiceAround.music.service.CommentService;
 import com.theVoiceAround.music.utils.Consts;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +26,9 @@ public class CommentServiceImpl implements CommentService{
 
     @Autowired
     private CommentMapper commentMapper;
+
+    @Autowired
+    private LikeRecordsMapper likeRecordsMapper;
 
     @Override
     public Map addComment(Comment comment) {
@@ -98,6 +103,37 @@ public class CommentServiceImpl implements CommentService{
         }else{
             map.put(Consts.CODE, "0");
             map.put(Consts.MESSAGE, "参数错误");
+        }
+        return map;
+    }
+
+    @Override
+    public Map like(Integer commentId, Integer userId) {
+        Map map = new HashMap();
+        if(commentId != null && userId != null){
+            //查询是否已经点过赞
+            LikeRecords likeRecords = likeRecordsMapper.selectOne(
+                    new QueryWrapper<LikeRecords>().eq("consumer_id", userId)
+            .eq("comment_id", commentId));
+            if(likeRecords != null){
+                map.put(Consts.CODE, "0");
+                map.put(Consts.MESSAGE, "已经点过赞了");
+            }else{
+                //查询当前评论对象
+                Comment comment = commentMapper.selectById(commentId);
+                //获取当前评论的点赞数
+                int currentUps = comment.getUp();
+                //执行点赞
+                comment.setUp(currentUps + 1);
+                commentMapper.updateById(comment);
+                //向点赞记录表中插入数据
+                LikeRecords likeRecords1 = new LikeRecords();
+                likeRecords1.setCommentId(commentId);
+                likeRecords1.setConsumerId(userId);
+                likeRecordsMapper.insert(likeRecords1);
+                map.put(Consts.CODE, "1");
+                map.put(Consts.MESSAGE, "点赞成功");
+            }
         }
         return map;
     }

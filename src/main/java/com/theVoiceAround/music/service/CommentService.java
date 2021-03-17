@@ -20,4 +20,6 @@ public interface CommentService {
     Map getCommentBySongListId(Integer songListId);
 
     Map deleteAComment(Integer commentId);
+
+    Map like(Integer commentId, Integer userId);
 }
