@@ -1,5 +1,7 @@
 package com.theVoiceAround.music.utils;
 
+import org.springframework.beans.factory.annotation.Value;
+
 /**
  * @author Taliy4h
  * @date 2021/2/1 16:30
@@ -24,7 +26,8 @@ public class Consts {
     /**
      * 上传文件物理地址统一前缀
      */
-    public static final String FILE_PATH = "F:/TheVoiceAround/files";
+    public static final String FILE_PATH = "/usr/local/music/files"; //服务器路径
+//    public static final String FILE_PATH = "F:/TheVoiceAround/files";   //本地路径
 
     /**
      * 歌手图片路径
