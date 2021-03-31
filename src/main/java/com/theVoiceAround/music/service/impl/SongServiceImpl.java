@@ -187,4 +187,23 @@ public class SongServiceImpl implements SongService {
         map.put(Consts.MESSAGE, "查询成功");
         return map;
     }
+
+    @Override
+    public Map getRankList() {
+        Map map = new HashMap();
+        List resultList = songMapper.getRankList();
+        map.put("data", resultList);
+        map.put(Consts.CODE, "1");
+        map.put(Consts.MESSAGE, "查询成功");
+        return map;
+    }
+
+    @Override
+    public Map increasePlayCount(Integer songId) {
+        Map map = new HashMap();
+        songMapper.increasePlayCount(songId);
+        map.put(Consts.CODE, "1");
+        map.put(Consts.MESSAGE, "播放量+1");
+        return map;
+    }
 }

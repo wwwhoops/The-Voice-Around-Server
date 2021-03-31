@@ -50,7 +50,8 @@
         song.id songId,
         song.url songUrl,
         song.pic songPic,
-        song.lyric songLyric
+        song.lyric songLyric,
+        song.play_count songPlayCount
         FROM
         song
         LEFT JOIN
@@ -60,5 +61,32 @@
             AND song.id = ${id}
         </if>
     </select>
+
+
+    <select id="getRankList" resultType="Map" parameterType="String">
+        SELECT
+        singer.name singerName,
+        singer.id singerId,
+        song.name songName,
+        song.album songAlbum,
+        song.id songId,
+        song.url songUrl,
+        song.pic songPic,
+        song.lyric songLyric,
+        song.play_count songPlayCount
+        FROM
+        song
+        LEFT JOIN
+        singer ON song.singer_id = singer.id
+        ORDER BY song.play_count DESC
+        LIMIT 50
+    </select>
+
+    <update id="increasePlayCount" parameterType="Integer">
+        UPDATE song
+        SET play_count = ( play_count + 1 )
+        WHERE
+	    id = ${songId}
+    </update>
 
 </mapper>

@@ -159,6 +159,24 @@ public class SongController {
     }
 
     /**
+     * 查询歌曲排行榜（按播放量）
+     */
+    @GetMapping("/getRankList")
+    public Map getRankList(){
+        Map map = songService.getRankList();
+        return map;
+    }
+
+    /**
+     * 增加播放量
+     */
+    @GetMapping("/increasePlayCount")
+    public Map increasePlayCount(Integer songId){
+        Map map = songService.increasePlayCount(songId);
+        return map;
+    }
+
+    /**
      * 更新歌曲图片
      */
     @PostMapping("/updateSongPic")

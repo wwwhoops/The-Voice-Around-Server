@@ -33,4 +33,8 @@ public interface SongService {
     Map selectAllSongBySingerIdAlias(Integer singerId);
 
     Map getASongBySongIdAlias(Integer songId);
+
+    Map getRankList();
+
+    Map increasePlayCount(Integer songId);
 }

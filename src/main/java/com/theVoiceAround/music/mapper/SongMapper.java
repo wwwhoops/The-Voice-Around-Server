@@ -16,4 +16,9 @@ public interface SongMapper extends BaseMapper<Song> {
     List selectAllSongBySingerIdAlias(Integer singerId);
 
     List getASongBySongIdAlias(Integer id);
+
+    //播放量top50
+    List getRankList();
+
+    void increasePlayCount(Integer songId);
 }
