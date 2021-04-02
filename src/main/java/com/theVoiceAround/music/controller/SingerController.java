@@ -74,6 +74,8 @@ public class SingerController {
         }
         //文件名等于当前时间 + 源文件名
         String fileName = System.currentTimeMillis() + avatarFile.getOriginalFilename();
+        //去除字符中的所有空白字符，这样是为了防止上传文件进入服务器因为由空格而访问不到对应资源
+        fileName.replaceAll("\\s*", "");
         String filePath = Consts.FILE_PATH + Consts.SINGER_PIC_PATH;
         File file1 = new File(filePath);
         //如果文件路径不存在，则新增

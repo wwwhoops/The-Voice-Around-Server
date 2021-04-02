@@ -45,7 +45,9 @@ public class SongController {
             map.put(Consts.MESSAGE,"歌曲添加失败, 上传文件为空或文件格式错误");
             return map;
         }
-        String fileName = System.currentTimeMillis() + mpFile.getOriginalFilename();
+        String fileName = System.currentTimeMillis() + mpFile.getOriginalFilename();       
+        //去除字符中的所有空白字符，这样是为了防止上传文件进入服务器因为由空格而访问不到对应资源
+        fileName.replaceAll("\\s*", "");
         String filePath = Consts.FILE_PATH + "/music/song";
         File file1 = new File(filePath);
         //如果文件路径不存在，则新增
@@ -189,6 +191,8 @@ public class SongController {
         }
         //文件名等于当前时间 + 源文件名
         String fileName = System.currentTimeMillis() + avatorFile.getOriginalFilename();
+        //去除字符中的所有空白字符，这样是为了防止上传文件进入服务器因为由空格而访问不到对应资源
+        fileName.replaceAll("\\s*", "");
         String filePath = Consts.FILE_PATH + Consts.SONG_PIC_PATH;
         File file1 = new File(filePath);
         //如果文件路径不存在，则新增
@@ -240,6 +244,8 @@ public class SongController {
         }
         //文件名等于当前时间 + 源文件名
         String fileName = System.currentTimeMillis() + musicFile.getOriginalFilename();
+        //去除字符中的所有空白字符，这样是为了防止上传文件进入服务器因为由空格而访问不到对应资源
+        fileName.replaceAll("\\s*", "");
         String filePath = Consts.FILE_PATH + "/music/song";
         File file1 = new File(filePath);
         //如果文件路径不存在，则新增
