@@ -42,6 +42,24 @@ public class SingerServiceImpl implements SingerService {
     }
 
     @Override
+    public Map getSingerByPicName(String picName) {
+        Map map = new HashMap<>();
+        if(picName != null && !picName.equals("")){
+            if(picName.indexOf(".") != -1){
+                picName = picName.substring(0, picName.indexOf(".")).substring(picName.lastIndexOf("/") + 1);
+                map.put(Consts.CODE, "1");
+                map.put("data",singerMapper.getSingerByPicName(picName));
+                map.put(Consts.MESSAGE, "查询成功");
+            }
+        }else{
+            map.put(Consts.CODE, "0");
+            map.put(Consts.MESSAGE, "查询失败, 图片名不能为空");
+        }
+
+        return map;
+    }
+
+    @Override
     public Map updateSinger(Singer singer) {
         //基于主键修改
         Map map = new HashMap<>();

@@ -1,5 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.theVoiceAround.music.mapper.SingerMapper">
-
+    <select id="getSingerByPicName" resultType="Map" parameterType="String">
+        SELECT
+        singer.id,
+        singer.name,
+        singer.sex,
+        singer.pic,
+        singer.birth,
+        singer.location,
+        singer.introduction
+        FROM
+        singer
+        WHERE 1=1
+        <if test="picName != null and picName != '' ">
+            AND singer.pic LIKE CONCAT('%',#{picName},'%')
+        </if>
+    </select>
 </mapper>

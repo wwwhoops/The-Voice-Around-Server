@@ -43,6 +43,15 @@ public class SingerController {
     }
 
     /**
+     * 根据图片名称模糊查询歌手信息
+     */
+    @GetMapping("/getSingerByPicName")
+    public Map getSingerByPicName(String picName){
+        Map resultMap = singerService.getSingerByPicName(picName);
+        return resultMap;
+    }
+
+    /**
      * 分页查询所有歌手, 包含模糊搜索
      * params: 分页参数以及查询条件
      */

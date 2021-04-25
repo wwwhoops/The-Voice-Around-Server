@@ -17,6 +17,11 @@ public interface SingerService {
     Map addSinger(Singer singer);
 
     /**
+     * 根据图片名称模糊查询歌手
+     */
+    Map getSingerByPicName(String picName);
+
+    /**
      * 修改歌手信息
      */
     Map updateSinger(Singer singer);
