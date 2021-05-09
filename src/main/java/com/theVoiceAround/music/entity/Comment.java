@@ -65,4 +65,16 @@ public class Comment implements Serializable {
     @TableField("up")
     private Integer up;
 
+    /**
+     * 用户头像
+     */
+    @TableField(exist = false)  //不是数据库字段,但必须使用
+    private String avatar;
+
+    /**
+     * 用户名
+     */
+    @TableField(exist = false)  //不是数据库字段,但必须使用
+    private String username;
+
 }

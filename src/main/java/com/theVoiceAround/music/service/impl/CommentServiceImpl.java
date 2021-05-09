@@ -2,19 +2,19 @@ package com.theVoiceAround.music.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.theVoiceAround.music.entity.Comment;
+import com.theVoiceAround.music.entity.Consumer;
 import com.theVoiceAround.music.entity.LikeRecords;
 import com.theVoiceAround.music.mapper.CommentMapper;
+import com.theVoiceAround.music.mapper.ConsumerMapper;
 import com.theVoiceAround.music.mapper.LikeRecordsMapper;
 import com.theVoiceAround.music.service.CommentService;
 import com.theVoiceAround.music.utils.Consts;
+import com.theVoiceAround.music.utils.TypeConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @author Taliy4h
@@ -29,6 +29,9 @@ public class CommentServiceImpl implements CommentService{
 
     @Autowired
     private LikeRecordsMapper likeRecordsMapper;
+
+    @Autowired
+    private ConsumerMapper consumerMapper;
 
     @Override
     public Map addComment(Comment comment) {
@@ -51,11 +54,29 @@ public class CommentServiceImpl implements CommentService{
     @Override
     public Map getCommentOfSongId(Integer songId) {
         Map map = new HashMap();
+        List resultList1 = new ArrayList();
         if(songId != null){
             List resultList = commentMapper.selectList(new QueryWrapper<Comment>().eq("song_id", songId));
+            //获取每条评论中的用户id
+            for(int i = 0; i < resultList.size(); i++){
+                //将List中的每个对象转换成Map类型
+                Map resultMap = TypeConverter.beanToMap(resultList.get(i));
+                //获取用户id
+                int consumerId = (int) resultMap.get("consumerId");
+                //根据用户id获取用户信息
+                Consumer consumer = consumerMapper.selectById(consumerId);
+                //将用户信息中的头像和用户名添加到resultMap
+                resultMap.put("avatar", consumer.getAvatar());
+                resultMap.put("username", consumer.getUsername());
+                Comment comment = new Comment();
+                //将Map类型转换为对象
+                Comment comment1 = TypeConverter.mapToBean(resultMap, comment);
+                //将对象装入resultList1
+                resultList1.add(comment1);
+            }
             map.put(Consts.CODE, "1");
             map.put(Consts.MESSAGE, "查询成功");
-            map.put("data", resultList);
+            map.put("data", resultList1);
         }else{
             map.put(Consts.CODE, "0");
             map.put(Consts.MESSAGE, "歌曲ID为空");
@@ -66,11 +87,30 @@ public class CommentServiceImpl implements CommentService{
     @Override
     public Map getCommentOfSongListId(Integer songListId) {
         Map map = new HashMap();
+        List resultList1 = new ArrayList();
         if(songListId != null){
             List resultList = commentMapper.selectList(new QueryWrapper<Comment>().eq("song_list_id", songListId));
+            //获取每条评论中的用户id
+            for(int i = 0; i < resultList.size(); i++){
+                //将List中的每个对象转换成Map类型
+                Map resultMap = TypeConverter.beanToMap(resultList.get(i));
+                //获取用户id
+                int consumerId = (int) resultMap.get("consumerId");
+                //根据用户id获取用户信息
+                Consumer consumer = consumerMapper.selectById(consumerId);
+                //将用户信息中的头像和用户名添加到resultMap
+                resultMap.put("avatar", consumer.getAvatar());
+                resultMap.put("username", consumer.getUsername());
+                Comment comment = new Comment();
+                //将Map类型转换为对象
+                Comment comment1 = TypeConverter.mapToBean(resultMap, comment);
+                //将对象装入resultList1
+                resultList1.add(comment1);
+            }
+
             map.put(Consts.CODE, "1");
             map.put(Consts.MESSAGE, "查询成功");
-            map.put("data", resultList);
+            map.put("data", resultList1);
         }else{
             map.put(Consts.CODE, "0");
             map.put(Consts.MESSAGE, "歌单ID为空");
