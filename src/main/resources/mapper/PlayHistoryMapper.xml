@@ -6,6 +6,9 @@
         song.NAME songName,
         singer.NAME singerName,
         song.album songAlbum,
+        song.pic songPic,
+        song.url songUrl,
+        song.lyric songLyric,
         play_history.play_time
         FROM
         play_history
