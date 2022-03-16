@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -35,6 +36,7 @@ public class SongController {
         String album = request.getParameter("album").trim(); //歌曲所在专辑
         String pic = Consts.DEFAULT_SONG_PIC_PATH;  //歌曲默认图片
         String lyric = request.getParameter("lyric").trim(); //歌词
+        String style = request.getParameter("style").trim(); //歌词
 
         //获取文件类型
         String fileAllName = mpFile.getOriginalFilename();
@@ -69,6 +71,7 @@ public class SongController {
             song.setAlbum(album);
             song.setPic(pic);
             song.setLyric(lyric);
+            song.setStyle(style);
             song.setUrl(storeUrlPath);
             map = songService.addSong(song);
             map.put("songPic",storeUrlPath);

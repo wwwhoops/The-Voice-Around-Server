@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.theVoiceAround.music.mapper.PlayHistoryMapper">
+    <select id="getHistoryByUserId" resultType="Map" parameterType="String">
+        SELECT
+        song.NAME songName,
+        singer.NAME singerName,
+        song.album songAlbum,
+        play_history.play_time
+        FROM
+        play_history
+        LEFT JOIN song ON play_history.song_id = song.id
+        LEFT JOIN singer ON song.singer_id = singer.id
+        WHERE
+        play_history.user_id = ${userId}
+        ORDER BY
+        play_history.play_time DESC
+    </select>
+
+</mapper>

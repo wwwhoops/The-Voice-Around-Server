@@ -50,4 +50,5 @@ public class CollectController {
     public Map deleteACollect(Integer userId, Integer songId){
         return collectService.deleteACollect(userId, songId);
     }
+
 }

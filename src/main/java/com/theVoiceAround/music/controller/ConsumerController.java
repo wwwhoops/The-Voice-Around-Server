@@ -1,7 +1,12 @@
 package com.theVoiceAround.music.controller;
 
 import com.alibaba.fastjson.JSON;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
+import com.theVoiceAround.music.entity.Comment;
 import com.theVoiceAround.music.entity.Consumer;
+import com.theVoiceAround.music.mapper.CommentMapper;
+import com.theVoiceAround.music.service.CommentService;
 import com.theVoiceAround.music.service.ConsumerService;
 import com.theVoiceAround.music.utils.Consts;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +31,9 @@ public class ConsumerController {
 
     @Autowired
     private ConsumerService consumerService;
+
+    @Autowired
+    private CommentMapper commentMapper;
 
     /**
      * 用户登录
@@ -94,6 +102,9 @@ public class ConsumerController {
             File oldFile = new File(Consts.FILE_PATH + oldFilePath);
             oldFile.delete();
         }
+        //同时删除该用户在评论表中的信息
+        QueryWrapper<Comment> queryWrapper = new QueryWrapper<>();
+        commentMapper.delete(queryWrapper.eq("consumer_id", id));
 //        //同时删除该歌手所拥有的歌曲，并且返回这些歌曲的id用作删除歌单中歌曲
 //        List songIdList = songService.deleteSongBySingerId(id);
 //        //根据上面得到的歌曲id，删除歌单里面拥有该歌手歌曲的数据

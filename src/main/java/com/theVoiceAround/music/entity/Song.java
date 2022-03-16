@@ -70,4 +70,16 @@ public class Song implements Serializable {
      */
     @TableField("url")
     private String url;
+
+    /**
+     * 播放次数
+     */
+    @TableField("play_count")
+    private String playCount;
+
+    /**
+     * 歌曲风格
+     */
+    @TableField("style")
+    private String style;
 }
