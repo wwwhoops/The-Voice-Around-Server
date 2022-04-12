@@ -4,6 +4,8 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import org.springframework.cglib.beans.BeanMap;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -86,5 +88,11 @@ public class TypeConverter {
             }
         }
         return list;
+    }
+
+    public static List combineListAndRemoveSame(List firstList, List secondList) {
+        firstList.removeAll(secondList);
+        firstList.addAll(secondList);
+        return firstList;
     }
 }

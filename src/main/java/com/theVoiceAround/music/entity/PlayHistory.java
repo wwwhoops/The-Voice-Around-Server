@@ -40,4 +40,40 @@ public class PlayHistory implements Serializable {
      */
     @TableField("play_time")
     private String playTime;
+
+    /**
+     * 歌手名
+     */
+    @TableField(exist = false)
+    private String singerName;
+
+    /**
+     * 专辑
+     */
+    @TableField(exist = false)
+    private String songAlbum;
+
+    /**
+     * 歌词
+     */
+    @TableField(exist = false)
+    private String songLyric;
+
+    /**
+     * 歌曲名
+     */
+    @TableField(exist = false)
+    private String songName;
+
+    /**
+     * 歌曲图片
+     */
+    @TableField(exist = false)
+    private String songPic;
+
+    /**
+     * 歌曲地址
+     */
+    @TableField(exist = false)
+    private String songUrl;
 }

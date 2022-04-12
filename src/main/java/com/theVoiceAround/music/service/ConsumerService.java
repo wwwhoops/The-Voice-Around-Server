@@ -27,4 +27,6 @@ public interface ConsumerService {
      * 验证密码
      */
     Consumer verifyPassword(String username, String password);
+
+    String selectStyleById(Integer userId);
 }

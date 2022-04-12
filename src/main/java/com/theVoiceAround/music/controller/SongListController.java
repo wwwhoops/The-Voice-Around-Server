@@ -51,6 +51,19 @@ public class SongListController {
     }
 
     /**
+     * 根据用户id查询推荐歌单
+     */
+    @GetMapping("/getRecommendSongList")
+    public Map getRecommendSongList(Integer userId){
+        if(userId != null && !userId.equals("")){
+            return songListService.getRecommendSongList(userId);
+        }else{
+            return songListService.getRecommendSongListWithNoId();
+        }
+
+    }
+
+    /**
      * 删除一个歌手
      */
     @GetMapping("/deleteASongList")

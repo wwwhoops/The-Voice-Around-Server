@@ -142,6 +142,24 @@ public class ConsumerController {
     }
 
     /**
+     * 曲风查询
+     */
+    @GetMapping("/selectStyleById")
+    public Map selectStyleById(int id){
+        Map map = new HashMap();
+        String style = consumerService.selectStyleById(id);
+        if(style != null){
+            map.put(Consts.CODE, "1");
+            map.put(Consts.MESSAGE, "查询成功");
+            map.put("data", style);
+        }else {
+            map.put(Consts.CODE, "0");
+            map.put(Consts.MESSAGE, "未找到记录");
+        }
+        return map;
+    }
+
+    /**
      * 更新用户头像
      */
     @PostMapping("/updateConsumerAvatar")

@@ -24,5 +24,9 @@ public interface SongListService {
 
     Map getAllSongListByKeywords(String keywords);
 
+    Map getRecommendSongList(Integer userId);
+
+    Map getRecommendSongListWithNoId();
+
 
 }

@@ -8,7 +8,9 @@
         song.album songAlbum,
         song.pic songPic,
         song.url songUrl,
+        song.id songId,
         song.lyric songLyric,
+        song.style songStyle,
         play_history.play_time
         FROM
         play_history

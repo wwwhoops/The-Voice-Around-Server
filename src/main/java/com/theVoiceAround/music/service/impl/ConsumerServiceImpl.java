@@ -13,10 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @author Taliy4h
@@ -28,6 +25,9 @@ public class ConsumerServiceImpl implements ConsumerService {
 
     @Autowired
     private ConsumerMapper consumerMapper;
+
+    @Autowired
+    private PlayHistoryServiceImpl playHistorytService;
 
     @Override
     public Map selectAllUserPage(int pageSize, int pageNum, String username) {
@@ -132,5 +132,83 @@ public class ConsumerServiceImpl implements ConsumerService {
         QueryWrapper<Consumer> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("username", username).eq("password",password);
         return consumerMapper.selectOne(queryWrapper);
+    }
+
+    @Override
+    public String selectStyleById(Integer userId) {
+        List historyList = new ArrayList();
+        List styleList = new ArrayList();
+        String style = "";
+        //如果存在播放记录，取出播放记录并分析歌曲风格
+        if(playHistorytService.getHistoryByUserId(userId).get("data") != null){
+            historyList = (List) playHistorytService.getHistoryByUserId(userId).get("data");
+            for(int i=0; i<historyList.size(); i++) {
+                HashMap hashMap = (HashMap) historyList.get(i);
+                styleList.add(hashMap.get("songStyle"));
+            }
+        }
+        StringBuffer styleStringBuffer = new StringBuffer();
+        for(int i=0; i<styleList.size(); i++){
+            styleStringBuffer.append(styleList.get(i));
+        }
+        //去除字符中的逗号
+        String styleString = styleStringBuffer.toString().replaceAll(",","");
+        //获取每种风格的数量并加入到数组中进行排序（冒泡）
+        int yueyu = this.getStrCount(styleString, "粤语");
+        int huayu = this.getStrCount(styleString, "华语");
+        int oumei = this.getStrCount(styleString, "欧美");
+        int rihan = this.getStrCount(styleString, "日韩");
+        int yaogun = this.getStrCount(styleString, "摇滚");
+        int minyao = this.getStrCount(styleString, "民谣");
+        int liuxing = this.getStrCount(styleString, "流行");
+        int qita = this.getStrCount(styleString, "其他");
+        int totalCount = yueyu + huayu + oumei + rihan + yaogun + minyao + liuxing + qita;  //所有类型数量和
+        if(yueyu > totalCount/4){
+            style = style + "粤语 ";
+        }
+        if(huayu > totalCount/4){
+            style = style + "华语 ";
+        }
+        if(oumei > totalCount/4){
+            style = style + "欧美 ";
+        }
+        if(rihan > totalCount/4){
+            style = style + "日韩 ";
+        }
+        if(yaogun > totalCount/4){
+            style = style + "摇滚 ";
+        }
+        if(minyao > totalCount/4){
+            style = style + "民谣 ";
+        }
+        if(liuxing > totalCount/4){
+            style = style + "流行 ";
+        }
+        if(qita > totalCount/4){
+            style = style + "其他 ";
+        }
+        return style;
+    }
+
+    private int getStrCount(String mainStr, String subStr) {
+        // 声明一个要返回的变量
+        int count = 0;
+        // 声明一个初始的下标，从初始位置开始查找
+        int index = 0;
+        // 获取主数据的长度
+        int mainStrLength = mainStr.length();
+        // 获取要查找的数据长度
+        int subStrLength = subStr.length();
+        // 如果要查找的数据长度大于主数据的长度则返回0
+        if (subStrLength > mainStrLength) {
+            return 0;
+        }
+        // 循环使用indexOf查找出现的下标，如果出现一次则count++
+        while ((index = mainStr.indexOf(subStr, index)) != -1) {
+            count++;
+            // 从找到的位置下标加上要查找的字符串长度，让指针往后移动继续查找
+            index += subStrLength;
+        }
+        return count;
     }
 }
