@@ -4,12 +4,15 @@ import com.alibaba.fastjson.JSON;
 import com.theVoiceAround.music.entity.Admin;
 import com.theVoiceAround.music.service.AdminService;
 import com.theVoiceAround.music.utils.Consts;
+import com.theVoiceAround.music.utils.MD5Encryptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpSession;
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -29,7 +32,7 @@ public class AdminController {
      * 判断登录是否成功
      */
     @PostMapping("/admin/login")
-    public Map loginStatus(@RequestBody String params, HttpSession session){
+    public Map loginStatus(@RequestBody String params, HttpSession session) throws UnsupportedEncodingException, NoSuchAlgorithmException {
         Map map = new HashMap();
         Map paramsMap = JSON.parseObject(params);
         String username = (String) paramsMap.get("name");

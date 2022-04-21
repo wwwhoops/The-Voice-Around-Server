@@ -9,6 +9,7 @@ import com.theVoiceAround.music.mapper.CommentMapper;
 import com.theVoiceAround.music.service.CommentService;
 import com.theVoiceAround.music.service.ConsumerService;
 import com.theVoiceAround.music.utils.Consts;
+import com.theVoiceAround.music.utils.MD5Encryptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -16,6 +17,8 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -39,7 +42,7 @@ public class ConsumerController {
      * 用户登录
      */
     @PostMapping("/login")
-    public Map consumerLogin(@RequestBody String params, HttpSession session){
+    public Map consumerLogin(@RequestBody String params, HttpSession session) throws UnsupportedEncodingException, NoSuchAlgorithmException {
         Map map = new HashMap();
         Map paramsMap = JSON.parseObject(params);
         String username = (String) paramsMap.get("name");

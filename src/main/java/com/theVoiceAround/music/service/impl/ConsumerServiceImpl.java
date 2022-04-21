@@ -7,6 +7,7 @@ import com.theVoiceAround.music.entity.Consumer;
 import com.theVoiceAround.music.mapper.ConsumerMapper;
 import com.theVoiceAround.music.service.ConsumerService;
 import com.theVoiceAround.music.utils.Consts;
+import com.theVoiceAround.music.utils.MD5Encryptor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -67,6 +68,7 @@ public class ConsumerServiceImpl implements ConsumerService {
                 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
                 String currentTime = dateFormat.format(new Date());
                 consumer.setCreateTime(currentTime);
+//                consumer.setPassword(MD5Encryptor.EncoderBySpring(consumer.getPassword()));
             } catch (Exception e) {
                 e.printStackTrace();
                 Logger logger = LoggerFactory.getLogger(ConsumerServiceImpl.class);
